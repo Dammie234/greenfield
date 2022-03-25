@@ -2,6 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 
+
+
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,6 +26,10 @@ Route::post('update-password', 'AuthController@updatePassword')->name('update_pa
 Route::get('/property-owner/password-updated', function () {
     return view('password-update');
 });
+Route::get('/invoice', 'ServiceController@viewInvoice')->name('invoice');
+Route::get('/complete-transaction', 'ServiceController@invoicePaid')->name('invoice.paid');
+
+Route::get('/response', 'ServiceController@response'); 
 
 Route::get('/{any}', function () {
     return view('welcome');

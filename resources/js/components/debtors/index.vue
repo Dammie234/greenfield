@@ -23,7 +23,7 @@
                                 </div>
                                 <div class="flex-auto px-4 lg:px-10 py-10 pt-0" >
                                     <div class="block w-full overflow-x-auto mt-2">
-                                        <table class="items-center w-full bg-transparent border-collapse" v-if="users.data.length != 0">
+                                        <table class="items-center w-full bg-transparent border-collapse" v-if="users.count != 0">
                                             <thead>
                                                 <tr>
                                                     <th class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">Name</th>
@@ -84,11 +84,8 @@ export default {
         return {
             team1: 'assets/img/team-1-800x800.jpg',
             team2: '../../assets/img/team-2-800x800.jpg',
-            lastname: '',
-            middlename: '',
-            firstname: '',
             id: '',
-            role: '',
+            token: '',
             users: {},
             searchTerm: ''
         }
@@ -119,24 +116,28 @@ export default {
                     name: '/'
                 })
             }else{
-                this.lastname = User.lastname()
-                this.middlename = User.middlename()
-                this.firstname = User.firstname()
-                this.role = User.role()
+                this.token = User.token()
                 this.id = User.id()
-                if(this.middlename == 'null'){
-                    this.$router.push({
-                        name: 'edit-profile'
-                    })
-                }
+                
             }
         },
         
         getDebtors() {
-            axios.get("/api/debts")
-                .then(({ data }) => (this.users = data))
-                .catch();
-        },
+            axios.get('/api/v1/debts', {
+                headers: {
+                    Authorization: 'Bearer ' + this.token,
+                    Accept: 'application/json'
+                }
+           }).then(response => (this.users = response.data))
+            .catch((error) => {
+                console.log(error)
+                if (error.response.status == 401) {
+                    this.$router.push({
+                        name: 'logout'
+                    })
+                }
+            })
+        }
     }
 }
 </script>

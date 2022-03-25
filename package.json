@@ -28,6 +28,7 @@
         "sweetalert2": "^9.17.2",
         "vue-moment": "^4.1.0",
         "vue-nprogress": "^0.2.0",
+        "vue-numeral-filter": "^2.2.0",
         "vue-router": "^3.5.2"
     }
 }

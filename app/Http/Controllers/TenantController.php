@@ -18,11 +18,21 @@ class TenantController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($user_id)
+    public function index($token)
+    {
+        $user = User::where('token', $token)->first();
+        $tenants = DB::table('tenants')
+                    ->leftJoin('users', 'users.id', '=', 'tenants.user_id')
+                    ->where('tenants.landlord_user_id', $user->id)
+                    ->select('users.salutation', 'users.lastname', 'users.firstname', 'users.mobile_phone', 'users.email', 'tenants.*')
+                    ->get();
+        return response()->json($tenants);
+    }
+    public function tenants($id)
     {
         $tenants = DB::table('tenants')
                     ->leftJoin('users', 'users.id', '=', 'tenants.user_id')
-                    ->where('tenants.landlord_user_id', $user_id)
+                    ->where('tenants.landlord_user_id', $id)
                     ->select('users.salutation', 'users.lastname', 'users.firstname', 'users.mobile_phone', 'users.email', 'tenants.*')
                     ->get();
         return response()->json($tenants);

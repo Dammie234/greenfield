@@ -379,11 +379,8 @@ export default {
         return {
             team1: 'assets/img/team-1-800x800.jpg',
             team2: '../../assets/img/team-2-800x800.jpg',
-            lastname: '',
-            middlename: '',
-            firstname: '',
             id: '',
-            role: '',
+            token: '',
             form:{
                 user_id: null,
                 property: null,
@@ -420,17 +417,10 @@ export default {
                     name: '/'
                 })
             }else{
-                this.lastname = User.lastname()
-                this.middlename = User.middlename()
-                this.firstname = User.firstname()
-                this.role = User.role()
+                this.token = User.token()
                 this.id = User.id()
                 this.form.user_id = User.id()
-                if(this.middlename == 'null'){
-                    this.$router.push({
-                        name: 'edit-profile'
-                    })
-                }
+                
             }
         },
         
@@ -445,9 +435,21 @@ export default {
             if (this.edit_apartment == false) {
                 this.apartment_id = id
                 this.edit_apartment = true
-                axios.get("/api/apartment/" + id)
-                .then(({ data }) => (this.form = data))
-                .catch();
+                
+                axios.get('/api/v1/apartment/' + this.apartment_id, {
+                        headers: {
+                            Authorization: 'Bearer ' + this.token,
+                            Accept: 'application/json'
+                        }
+                }).then(response => (this.form = response.data))
+                .catch((error) => {
+                    console.log(error)
+                    if (error.response.status == 401) {
+                        this.$router.push({
+                            name: 'logout'
+                        })
+                    }
+                })
             }
         },
         closeEditApartment(){
@@ -539,15 +541,37 @@ export default {
             })
         },
         getApartments() {
-            axios.get("/api/apartments/" + this.id)
-                .then(({ data }) => (this.apartments = data))
-                .catch();
+            axios.get('/api/v1/apartments/' + this.token, {
+                    headers: {
+                        Authorization: 'Bearer ' + this.token,
+                        Accept: 'application/json'
+                    }
+            }).then(response => (this.apartments = response.data))
+            .catch((error) => {
+                console.log(error)
+                if (error.response.status == 401) {
+                    this.$router.push({
+                        name: 'logout'
+                    })
+                }
+            })
         },
-        getProperties() {
-            axios.get("/api/properties/" + this.id)
-                .then(({ data }) => (this.properties = data))
-                .catch();
-        },
+        getProperties(){
+            axios.get('/api/v1/properties/' + this.token, {
+                headers: {
+                    Authorization: 'Bearer ' + this.token,
+                    Accept: 'application/json'
+                }
+           }).then(response => (this.properties = response.data))
+            .catch((error) => {
+                console.log(error)
+                if (error.response.status == 401) {
+                    this.$router.push({
+                        name: 'logout'
+                    })
+                }
+            })
+        }
     }
 }
 </script>

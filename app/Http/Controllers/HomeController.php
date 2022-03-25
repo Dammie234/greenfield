@@ -2,27 +2,52 @@
 
 namespace App\Http\Controllers;
 use DB;
+use App\User;
+use App\Biodata;
 use Illuminate\Http\Request;
 
 
 class HomeController extends Controller
 {
-    public function dashboardLandlord($user_id)
+    public function user($token)
     {
-        $aproperties = count(DB::table('properties')->where('user_id', $user_id)->get());
-        $aapartments = count(DB::table('apartments')->where('user_id', $user_id)->get());
-        $atenants = count(DB::table('tenants')->where('landlord_user_id', $user_id)->get());
-        $nproperties = DB::table('properties')->where('user_id', $user_id)->take(5)->get();
+        $users = User::where('token', $token)->get();
+        if (count($users) == 0) {
+            return redirect()->route('/logout');
+        } else {
+            $user = User::where('token', $token)->first();
+            $biodata = Biodata::where('user_id', $user->id)->first();
+            
+        }
+        
+        return response()->json($user);
+    }
+    public function checkUser($token)
+    {
+        $user = User::where('token', $token)->first();
+        $biodata = Biodata::where('user_id', $user->id)->first();
+        if (!isset($user->middlename) && !isset($biodata->gender) && !isset($biodata->date_of_birth) && !isset($biodata->religion) && !isset($biodata->occupation) && !isset($biodata->nationality) && !isset($biodata->marital_status) || !isset($biodata->date_moved_in) && $user->status == 0) {
+            return response()->json(['error' => 'Uncompleted Profile'], 401);
+        }
+    }
+    
+    public function dashboardLandlord($token)
+    {
+        $user = User::where('token', $token)->first();
+        $aproperties = count(DB::table('properties')->where('user_id', $user->id)->get());
+        $aapartments = count(DB::table('apartments')->where('user_id', $user->id)->get());
+        $atenants = count(DB::table('tenants')->where('landlord_user_id', $user->id)->get());
+        $nproperties = DB::table('properties')->where('user_id', $user->id)->take(5)->get();
         $napartments = DB::table('properties')
                         ->leftJoin('apartments', 'apartments.property_id', '=', 'properties.id')
-                        ->where('properties.user_id', $user_id)
+                        ->where('properties.user_id', $user->id)
                         ->select('properties.house_number', 'properties.street_name', 'apartments.*')
                         ->take(5)
                         ->get();
         $ntenants = DB::table('tenants')
                         ->leftJoin('users', 'users.id', '=', 'tenants.user_id')
                         ->leftJoin('properties', 'properties.id', '=', 'tenants.property_id')
-                        ->where('tenants.landlord_user_id', $user_id)
+                        ->where('tenants.landlord_user_id', $user->id)
                         ->select('users.salutation', 'users.lastname', 'users.firstname', 'users.mobile_phone', 'users.email', 'tenants.*', 'properties.house_number', 'properties.street_name')
                         ->take(5)
                         ->get();
@@ -63,17 +88,17 @@ class HomeController extends Controller
                             ->get();
         return response()->json($landlords);
     }
-    public function userDebts($user_id)
+    public function userDebts($token)
     {
-        
+        $user = User::where('token', $token)->first();
         $months = DB::table('monthly_payments')
                         ->leftJoin('services', 'services.id', '=', 'monthly_payments.service_id')
-                        ->where('user_id', $user_id)
+                        ->where('user_id', $user->id)
                         ->get();
         $one_offs = DB::table('one_off_payments')
                         ->leftJoin('services', 'services.id', '=', 'one_off_payments.service_id')
                         ->select('services.amount', 'one_off_payments.*')
-                        ->where('user_id', $user_id)
+                        ->where('user_id', $user->id)
                         ->get();
         $debts = 0;
         function debt($month, $amount)
@@ -689,6 +714,7 @@ class HomeController extends Controller
                 $data[] = user($one_off->user_id, $one_off->name, $one_off->amount);
             }
         }
-        return response()->json(['debts' => $debts, 'debtors' => $debtors, 'data' => $data]);
+        $count = count($data);
+        return response()->json(['debts' => $debts, 'debtors' => $debtors, 'data' => $data, 'count' => $count]);
     }
 }

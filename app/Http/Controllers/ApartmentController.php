@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use DB;
+use App\User;
 use App\Apartment;
 use Illuminate\Http\Request;
 
@@ -12,11 +13,21 @@ class ApartmentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($user_id)
+    public function index($token)
+    {
+        $user = User::where('token', $token)->first();
+        $apartments = DB::table('properties')
+                        ->leftJoin('apartments', 'apartments.property_id', '=', 'properties.id')
+                        ->where('apartments.user_id', $user->id)
+                        ->select('properties.house_number', 'properties.street_name', 'apartments.*')
+                        ->get();
+        return response()->json($apartments);
+    }
+    public function apartments($id)
     {
         $apartments = DB::table('properties')
                         ->leftJoin('apartments', 'apartments.property_id', '=', 'properties.id')
-                        ->where('apartments.user_id', $user_id)
+                        ->where('apartments.user_id', $id)
                         ->select('properties.house_number', 'properties.street_name', 'apartments.*')
                         ->get();
         return response()->json($apartments);
@@ -44,7 +55,7 @@ class ApartmentController extends Controller
             'property' => 'required', 
             'building_type' => 'required|string'
         ]);
-        date_default_timezone_set('Africa/Lagos');
+
         $data = [
             'user_id' => $request->user_id, 
             'property_id' => $request->property, 
@@ -67,9 +78,9 @@ class ApartmentController extends Controller
      * @param  \App\Apartment  $apartment
      * @return \Illuminate\Http\Response
      */
-    public function show(Apartment $apartment)
+    public function show($id)
     {
-        $apartment = Apartment::where('id', $apartment->id)->first();
+        $apartment = Apartment::where('id', $id)->first();
         return response()->json($apartment);
     }
 

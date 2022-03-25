@@ -153,8 +153,9 @@ export default {
     name: 'header',
     data(){
         return {
-            team1: 'assets/img/team-1-800x800.jpg'
+            team1: 'assets/img/team-1-800x800.jpg',
         }
     }
+    
 }
 </script>

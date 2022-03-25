@@ -7,154 +7,154 @@
                <page-nav></page-nav>
                 <!-- Header -->
                 <div class="relative bg-light-green md:pt-32 pb-32 pt-12" >
-                <div class="px-4 md:px-10 mx-auto w-full">
-                    <div>
-                    <!-- Card stats -->
-                    <div class="flex flex-wrap">
-                        <div class="w-full lg:w-6/12 xl:w-3/12 px-4" v-show="role == 1 ? true : false" style="display:none;">
-                            <div class="relative flex flex-col min-w-0 break-words bg-white rounded mb-6 xl:mb-0 shadow-lg">
-                                <div class="flex-auto p-4">
-                                <div class="flex flex-wrap">
-                                    <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
-                                    <h5 class="text-blueGray-400 uppercase font-bold text-xs">
-                                        Landlords
-                                    </h5>
-                                    <span class="font-semibold text-xl text-blueGray-700" v-if="role == 1">
-                                        {{admin.landlords}}
-                                    </span>
-                                    </div>
-                                    <div class="relative w-auto pl-4 flex-initial">
-                                    <div class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 shadow-lg rounded-full bg-light-green">
-                                        <i class="fas fa-users"></i>
-                                    </div>
-                                    </div>
-                                </div>
-                                <p class="text-sm text-blueGray-400 mt-4">
-                                    <span class="whitespace-nowrap">
-                                        Number of landlords
-                                    </span>
-                                </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="w-full lg:w-6/12 xl:w-3/12 px-4" v-show="role == 2 || role == 1 ? true : false" style="display:none;">
-                            <div class="relative flex flex-col min-w-0 break-words bg-white rounded mb-6 xl:mb-0 shadow-lg">
-                                <div class="flex-auto p-4">
-                                <div class="flex flex-wrap">
-                                    <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
-                                    <h5 class="text-blueGray-400 uppercase font-bold text-xs">
-                                        Properties
-                                    </h5>
-                                    <span class="font-semibold text-xl text-blueGray-700" v-if="role == 1">
-                                        {{admin.aproperties}}
-                                    </span>
-                                    <span class="font-semibold text-xl text-blueGray-700" v-if="role == 2">
-                                        {{dashboard.aproperties}}
-                                    </span>
-                                    </div>
-                                    <div class="relative w-auto pl-4 flex-initial">
-                                    <div class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 shadow-lg rounded-full bg-red-500">
-                                        <i class="fas fa-building"></i>
-                                    </div>
-                                    </div>
-                                </div>
-                                <p class="text-sm text-blueGray-400 mt-4">
-                                    <span class="whitespace-nowrap">
-                                        Number of properties
-                                    </span>
-                                </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="w-full lg:w-6/12 xl:w-3/12 px-4" v-show="role == 2? true : false" style="display:none;">
-                            <div class="relative flex flex-col min-w-0 break-words bg-white rounded mb-6 xl:mb-0 shadow-lg">
-                                <div class="flex-auto p-4">
-                                <div class="flex flex-wrap">
-                                    <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
-                                    <h5 class="text-blueGray-400 uppercase font-bold text-xs">
-                                        Apartments
-                                    </h5>
-                                    <span class="font-semibold text-xl text-blueGray-700" v-if="role == 2">
-                                        {{dashboard.aapartments}}
-                                    </span>
-                                    </div>
-                                    <div class="relative w-auto pl-4 flex-initial">
-                                    <div class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 shadow-lg rounded-full bg-orange-500">
-                                        <i class="fas fa-house-user"></i>
-                                    </div>
-                                    </div>
-                                </div>
-                                <p class="text-sm text-blueGray-400 mt-4">
-                                    <span class="whitespace-nowrap">
-                                        Number of apartments
-                                    </span>
-                                </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="w-full lg:w-6/12 xl:w-3/12 px-4" v-show="role == 2 || role == 1 ? true : false" style="display:none;">
-                            <div class="relative flex flex-col min-w-0 break-words bg-white rounded mb-6 xl:mb-0 shadow-lg">
-                                <div class="flex-auto p-4">
-                                <div class="flex flex-wrap">
-                                    <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
-                                    <h5 class="text-blueGray-400 uppercase font-bold text-xs">
-                                        Tenants
-                                    </h5>
-                                    <span class="font-semibold text-xl text-blueGray-700" v-if="role == 1">
-                                        {{admin.atenants}}
-                                    </span>
-                                    <span class="font-semibold text-xl text-blueGray-700" v-if="role == 2">
-                                        {{dashboard.atenants}}
-                                    </span>
-                                    </div>
-                                    <div class="relative w-auto pl-4 flex-initial">
-                                    <div class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 shadow-lg rounded-full bg-light-green">
-                                        <i class="fas fa-users"></i>
-                                    </div>
-                                    </div>
-                                </div>
-                                <p class="text-sm text-blueGray-400 mt-4">
-                                    <span class="whitespace-nowrap">
-                                        Number of tenants occuping apartments 
-                                    </span>
-                                </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="w-full lg:w-6/12 xl:w-3/12 px-4" v-show="role == 2 || role == 1 ? true : false" style="display:none;">
-                            <div class="relative flex flex-col min-w-0 break-words bg-white rounded mb-6 xl:mb-0 shadow-lg">
-                                <div class="flex-auto p-4">
-                                <div class="flex flex-wrap">
-                                    <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
-                                        <h5 class="text-blueGray-400 uppercase font-bold text-xs" v-if="role == 2">
-                                            Debts
+                    <div class="px-4 md:px-10 mx-auto w-full">
+                        <div>
+                        <!-- Card stats -->
+                        <div class="flex flex-wrap">
+                            <div class="w-full lg:w-6/12 xl:w-3/12 px-4" v-show="user.role == 1 ? true : false" style="display:none;">
+                                <div class="relative flex flex-col min-w-0 break-words bg-white rounded mb-6 xl:mb-0 shadow-lg">
+                                    <div class="flex-auto p-4">
+                                    <div class="flex flex-wrap">
+                                        <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
+                                        <h5 class="text-blueGray-400 uppercase font-bold text-xs">
+                                            Landlords
                                         </h5>
-                                        <h5 class="text-blueGray-400 uppercase font-bold text-xs" v-if="role == 1">
-                                            Debtors
-                                        </h5>
-                                        <span class="font-semibold text-xl text-blueGray-700" v-if="role == 2"><span v-if="debt > 0" class="text-red">&#8358;{{debt}}</span><span v-else>&#8358;{{debt}}</span></span>
-                                        <span class="font-semibold text-xl text-blueGray-700" v-if="role == 1"> <span v-if="debts_data.debtors > 0" class="text-red">{{debts_data.debtors}} debtors owing &#8358;{{debts_data.debts}}</span><span v-else>{{debts_data.debtors}} debtors</span> </span>
-                                    </div>
-                                    <div class="relative w-auto pl-4 flex-initial">
-                                        <div class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 shadow-lg rounded-full bg-lightBlue-500">
+                                        <span class="font-semibold text-xl text-blueGray-700" v-if="user.role == 1">
+                                            {{admin.landlords}}
+                                        </span>
+                                        </div>
+                                        <div class="relative w-auto pl-4 flex-initial">
+                                        <div class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 shadow-lg rounded-full bg-light-green">
                                             <i class="fas fa-users"></i>
                                         </div>
+                                        </div>
+                                    </div>
+                                    <p class="text-sm text-blueGray-400 mt-4">
+                                        <span class="whitespace-nowrap">
+                                            Number of landlords
+                                        </span>
+                                    </p>
                                     </div>
                                 </div>
-                                <p class="text-sm text-blueGray-400 mt-4">
-                                    <span class="whitespace-nowrap" v-if="role == 2">Total debts <router-link to="/services" class="text-blue">Click here to make payment</router-link></span>
-                                    <span class="whitespace-nowrap" v-if="role == 1">Number of debtors. <router-link to="/debtors" class="text-blue">Click here to view debtors.</router-link></span>
-                                </p>
+                            </div>
+                            <div class="w-full lg:w-6/12 xl:w-3/12 px-4" v-show="user.role == 2 || user.role == 1 ? true : false" style="display:none;">
+                                <div class="relative flex flex-col min-w-0 break-words bg-white rounded mb-6 xl:mb-0 shadow-lg">
+                                    <div class="flex-auto p-4">
+                                    <div class="flex flex-wrap">
+                                        <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
+                                        <h5 class="text-blueGray-400 uppercase font-bold text-xs">
+                                            Properties
+                                        </h5>
+                                        <span class="font-semibold text-xl text-blueGray-700" v-if="user.role == 1">
+                                            {{admin.aproperties}}
+                                        </span>
+                                        <span class="font-semibold text-xl text-blueGray-700" v-if="user.role == 2">
+                                            {{dashboard.aproperties}}
+                                        </span>
+                                        </div>
+                                        <div class="relative w-auto pl-4 flex-initial">
+                                        <div class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 shadow-lg rounded-full bg-red-500">
+                                            <i class="fas fa-building"></i>
+                                        </div>
+                                        </div>
+                                    </div>
+                                    <p class="text-sm text-blueGray-400 mt-4">
+                                        <span class="whitespace-nowrap">
+                                            Number of properties
+                                        </span>
+                                    </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="w-full lg:w-6/12 xl:w-3/12 px-4" v-show="user.role == 2? true : false" style="display:none;">
+                                <div class="relative flex flex-col min-w-0 break-words bg-white rounded mb-6 xl:mb-0 shadow-lg">
+                                    <div class="flex-auto p-4">
+                                    <div class="flex flex-wrap">
+                                        <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
+                                        <h5 class="text-blueGray-400 uppercase font-bold text-xs">
+                                            Apartments
+                                        </h5>
+                                        <span class="font-semibold text-xl text-blueGray-700" v-if="user.role == 2">
+                                            {{dashboard.aapartments}}
+                                        </span>
+                                        </div>
+                                        <div class="relative w-auto pl-4 flex-initial">
+                                        <div class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 shadow-lg rounded-full bg-orange-500">
+                                            <i class="fas fa-house-user"></i>
+                                        </div>
+                                        </div>
+                                    </div>
+                                    <p class="text-sm text-blueGray-400 mt-4">
+                                        <span class="whitespace-nowrap">
+                                            Number of apartments
+                                        </span>
+                                    </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="w-full lg:w-6/12 xl:w-3/12 px-4" v-show="user.role == 2 || user.role == 1 ? true : false" style="display:none;">
+                                <div class="relative flex flex-col min-w-0 break-words bg-white rounded mb-6 xl:mb-0 shadow-lg">
+                                    <div class="flex-auto p-4">
+                                    <div class="flex flex-wrap">
+                                        <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
+                                        <h5 class="text-blueGray-400 uppercase font-bold text-xs">
+                                            Tenants
+                                        </h5>
+                                        <span class="font-semibold text-xl text-blueGray-700" v-if="user.role == 1">
+                                            {{admin.atenants}}
+                                        </span>
+                                        <span class="font-semibold text-xl text-blueGray-700" v-if="user.role == 2">
+                                            {{dashboard.atenants}}
+                                        </span>
+                                        </div>
+                                        <div class="relative w-auto pl-4 flex-initial">
+                                        <div class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 shadow-lg rounded-full bg-light-green">
+                                            <i class="fas fa-users"></i>
+                                        </div>
+                                        </div>
+                                    </div>
+                                    <p class="text-sm text-blueGray-400 mt-4">
+                                        <span class="whitespace-nowrap">
+                                            Number of tenants occuping apartments 
+                                        </span>
+                                    </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="w-full lg:w-6/12 xl:w-3/12 px-4" v-show="user.role == 2 || user.role == 1 ? true : false" style="display:none;">
+                                <div class="relative flex flex-col min-w-0 break-words bg-white rounded mb-6 xl:mb-0 shadow-lg">
+                                    <div class="flex-auto p-4">
+                                    <div class="flex flex-wrap">
+                                        <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
+                                            <h5 class="text-blueGray-400 uppercase font-bold text-xs" v-if="user.role == 2">
+                                                Debts
+                                            </h5>
+                                            <h5 class="text-blueGray-400 uppercase font-bold text-xs" v-if="user.role == 1">
+                                                Debtors
+                                            </h5>
+                                            <span class="font-semibold text-xl text-blueGray-700" v-if="user.role == 2"><span v-if="debt > 0" class="text-red">&#8358;{{debt}}</span><span v-else>&#8358;{{debt}}</span></span>
+                                            <span class="font-semibold text-xl text-blueGray-700" v-if="user.role == 1"> <span v-if="debts_data.debtors > 0" class="text-red">{{debts_data.debtors}} debtors owing &#8358;{{debts_data.debts}}</span><span v-else>{{debts_data.debtors}} debtors</span> </span>
+                                        </div>
+                                        <div class="relative w-auto pl-4 flex-initial">
+                                            <div class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 shadow-lg rounded-full bg-lightBlue-500">
+                                                <i class="fas fa-users"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <p class="text-sm text-blueGray-400 mt-4">
+                                        <span class="whitespace-nowrap" v-if="user.role == 2">Total debts <router-link to="/services" class="text-blue">Click here to make payment</router-link></span>
+                                        <span class="whitespace-nowrap" v-if="user.role == 1">Number of debtors. <router-link to="/debtors" class="text-blue">Click here to view debtors.</router-link></span>
+                                    </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        </div>
                     </div>
-                    </div>
-                </div>
                 </div>
                 <div class="px-4 md:px-10 mx-auto w-full -m-24">
                     <div class="flex flex-wrap">
-                        <div class="w-full mb-12 xl:mb-0 px-4" v-show="role == 1 ? true : false" style="display:none;">
+                        <div class="w-full mb-12 xl:mb-0 px-4" v-show="user.role == 1 ? true : false" style="display:none;">
                             <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
                                 <div class="rounded-t mb-0 px-4 py-3 border-0">
                                 <div class="flex flex-wrap items-center">
@@ -195,7 +195,7 @@
                                             </th>
                                         </tr>
                                         </thead>
-                                        <tbody v-if="role == 1">
+                                        <tbody v-if="user.role == 1">
                                             <tr v-for="(landlord, index) in admin.nlandlords" :key="index">
                                                 <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                                                     {{landlord.salutation + ' ' + landlord.lastname + ' ' + landlord.firstname}}
@@ -222,7 +222,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="w-full mb-12 xl:mb-0 px-4" v-show="role == 2 || role == 1 ? true : false" style="display:none;">
+                        <div class="w-full mb-12 xl:mb-0 px-4" v-show="user.role == 2 || user.role == 1 ? true : false" style="display:none;">
                             <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
                                 <div class="rounded-t mb-0 px-4 py-3 border-0">
                                 <div class="flex flex-wrap items-center">
@@ -232,7 +232,7 @@
                                     </h3>
                                     </div>
                                     <div class="relative w-full px-4 max-w-full flex-grow flex-1 text-right">
-                                    <router-link v-if="role == 2" to="/property" class="bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
+                                    <router-link v-if="user.role == 2" to="/property" class="bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
                                         See all
                                     </router-link>
                                     </div>
@@ -257,7 +257,7 @@
                                             </th>
                                         </tr>
                                         </thead>
-                                        <tbody v-if="role == 1">
+                                        <tbody v-if="user.role == 1">
                                             <tr v-for="(property, index) in admin.nproperties" :key="index">
                                                 <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                                                     {{property.house_number + ', ' + property.street_name}}
@@ -273,7 +273,7 @@
                                                 </td>
                                             </tr>
                                         </tbody>
-                                        <tbody v-if="role == 2">
+                                        <tbody v-if="user.role == 2">
                                             <tr v-for="(property, index) in dashboard.nproperties" :key="index">
                                                 <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                                                     {{property.house_number + ', ' + property.street_name}}
@@ -293,7 +293,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="w-full px-4" v-show="role == 2 ? true : false" style="display:none;">
+                        <div class="w-full px-4" v-show="user.role == 2 ? true : false" style="display:none;">
                             <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
                                 <div class="rounded-t mb-0 px-4 py-3 border-0">
                                     <div class="flex flex-wrap items-center">
@@ -372,7 +372,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="w-full px-4" v-show="role == 2 || role == 1 ? true : false" style="display:none;">
+                        <div class="w-full px-4" v-show="user.role == 2 || user.role == 1 ? true : false" style="display:none;">
                             <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
                                 <div class="rounded-t mb-0 px-4 py-3 border-0">
                                     <div class="flex flex-wrap items-center">
@@ -382,7 +382,7 @@
                                             </h3>
                                         </div>
                                         <div class="relative w-full px-4 max-w-full flex-grow flex-1 text-right">
-                                            <router-link v-if="role == 2" to="/tenant" class="bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
+                                            <router-link v-if="user.role == 2" to="/tenant" class="bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
                                                 See all
                                             </router-link>
                                         </div>
@@ -411,7 +411,7 @@
                                                 </th>
                                             </tr>
                                         </thead>
-                                        <tbody v-if="role == 1 ">
+                                        <tbody v-if="user.role == 1 ">
                                             <tr v-for="(tenant, index) in admin.ntenants" :key="index">
                                                 <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                                                     {{tenant.salutation + ' ' + tenant.lastname + ' ' + tenant.firstname}}
@@ -431,7 +431,7 @@
                                                 </td>
                                             </tr>
                                         </tbody>
-                                        <tbody v-if="role == 2">
+                                        <tbody v-if="user.role == 2">
                                             <tr v-for="(tenant, index) in dashboard.ntenants" :key="index">
                                                 <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                                                     {{tenant.salutation + ' ' + tenant.lastname + ' ' + tenant.firstname}}
@@ -455,7 +455,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="w-full px-4" v-show="role == 3 || role == 2? true : false" style="display:none;">
+                        <div class="w-full px-4" v-show="user.role == 3 || user.role == 2? true : false" style="display:none;">
                             <div class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-100 border-0">
                                 <div class="rounded-t bg-white mb-0 px-6 py-6">
                                     <div class="text-center flex justify-between">
@@ -495,73 +495,97 @@
                                                     <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">{{'&#8358;' + service.amount}}</td>
                                                     <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">{{service.year}}</td>
                                                     <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                                        <span v-if="service.january == 1">-</span>
+                                                        <span v-if="service.january == 1">
+                                                            <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full bg-light-green text-white uppercase last:mr-0 mr-1">paid</span>
+                                                        </span>
                                                         <span v-else>
                                                             <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-blueGray-100 bg-red-600 uppercase last:mr-0 mr-1">unpaid</span>
                                                         </span>
                                                     </td>
                                                     <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                                        <span v-if="service.february == 1">-</span>
+                                                        <span v-if="service.february == 1">
+                                                            <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full bg-light-green text-white uppercase last:mr-0 mr-1">paid</span>
+                                                        </span>
                                                         <span v-else>
                                                             <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-blueGray-100 bg-red-600 uppercase last:mr-0 mr-1">unpaid</span>
                                                         </span>
                                                     </td>
                                                     <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                                        <span v-if="service.march == 1">-</span>
+                                                        <span v-if="service.march == 1">
+                                                            <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full bg-light-green text-white uppercase last:mr-0 mr-1">paid</span>
+                                                        </span>
                                                         <span v-else>
                                                             <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-blueGray-100 bg-red-600 uppercase last:mr-0 mr-1">unpaid</span>
                                                         </span>
                                                     </td>
                                                     <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                                        <span v-if="service.april == 1">-</span>
+                                                        <span v-if="service.april == 1">
+                                                            <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full bg-light-green text-white uppercase last:mr-0 mr-1">paid</span>
+                                                        </span>
                                                         <span v-else>
                                                             <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-blueGray-100 bg-red-600 uppercase last:mr-0 mr-1">unpaid</span>
                                                         </span>
                                                     </td>
                                                     <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                                        <span v-if="service.may == 1">-</span>
+                                                        <span v-if="service.may == 1">
+                                                            <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full bg-light-green text-white uppercase last:mr-0 mr-1">paid</span>
+                                                        </span>
                                                         <span v-else>
                                                             <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-blueGray-100 bg-red-600 uppercase last:mr-0 mr-1">unpaid</span>
                                                         </span>
                                                     </td>
                                                     <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                                        <span v-if="service.june == 1">-</span>
+                                                        <span v-if="service.june == 1">
+                                                            <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full bg-light-green text-white uppercase last:mr-0 mr-1">paid</span>
+                                                        </span>
                                                         <span v-else>
                                                             <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-blueGray-100 bg-red-600 uppercase last:mr-0 mr-1">unpaid</span>
                                                         </span>
                                                     </td>
                                                     <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                                        <span v-if="service.july == 1">-</span>
+                                                        <span v-if="service.july == 1">
+                                                            <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full bg-light-green text-white uppercase last:mr-0 mr-1">paid</span>
+                                                        </span>
                                                         <span v-else>
                                                             <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-blueGray-100 bg-red-600 uppercase last:mr-0 mr-1">unpaid</span>
                                                         </span>
                                                     </td>
                                                     <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                                        <span v-if="service.august == 1">-</span>
+                                                        <span v-if="service.august == 1">
+                                                            <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full bg-light-green text-white uppercase last:mr-0 mr-1">paid</span>
+                                                        </span>
                                                         <span v-else>
                                                             <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-blueGray-100 bg-red-600 uppercase last:mr-0 mr-1">unpaid</span>
                                                         </span>
                                                     </td>
                                                     <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                                        <span v-if="service.september == 1">-</span>
+                                                        <span v-if="service.september == 1">
+                                                            <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full bg-light-green text-white uppercase last:mr-0 mr-1">paid</span>
+                                                        </span>
                                                         <span v-else>
                                                             <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-blueGray-100 bg-red-600 uppercase last:mr-0 mr-1">unpaid</span>
                                                         </span>
                                                     </td>
                                                     <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                                        <span v-if="service.october == 1">-</span>
+                                                        <span v-if="service.october == 1">
+                                                            <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full bg-light-green text-white uppercase last:mr-0 mr-1">paid</span>
+                                                        </span>
                                                         <span v-else>
                                                             <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-blueGray-100 bg-red-600 uppercase last:mr-0 mr-1">unpaid</span>
                                                         </span>
                                                     </td>
                                                     <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                                        <span v-if="service.november == 1">-</span>
+                                                        <span v-if="service.november == 1">
+                                                            <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full bg-light-green text-white uppercase last:mr-0 mr-1">paid</span>
+                                                        </span>
                                                         <span v-else>
                                                             <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-blueGray-100 bg-red-600 uppercase last:mr-0 mr-1">unpaid</span>
                                                         </span>
                                                     </td>
                                                     <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                                        <span v-if="service.december == 1">-</span>
+                                                        <span v-if="service.december == 1">
+                                                            <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full bg-light-green text-white uppercase last:mr-0 mr-1">paid</span>
+                                                        </span>
                                                         <span v-else>
                                                             <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-blueGray-100 bg-red-600 uppercase last:mr-0 mr-1">unpaid</span>
                                                         </span>
@@ -588,7 +612,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="w-full px-4" v-show="role == 3 || role == 2 ? true : false" style="display:none;">
+                        <div class="w-full px-4" v-show="user.role == 3 || user.role == 2 ? true : false" style="display:none;">
                             <div class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-100 border-0">
                                 <div class="rounded-t bg-white mb-0 px-6 py-6">
                                     <div class="text-center flex justify-between">
@@ -635,7 +659,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="w-full px-4" v-show="(role == 3 || role == 2) && debt > 0? true : false" style="display:none;">
+                        <div class="w-full px-4" v-show="(user.role == 3 || user.role == 2) && debt > 0? true : false" style="display:none;">
                             <div class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-100 border-0">
                                 <div class="rounded-t bg-white mb-0 px-6 py-6">
                                     <div class="text-center flex justify-between">
@@ -683,26 +707,24 @@ export default {
     data() {
         return {
             team1: 'assets/img/team-1-800x800.jpg',
-            lastname: '',
-            middlename: '',
-            firstname: '',
             id: '',
-            role: '',
+            token: '',
+            user:'',
             dashboard: [],
-            admin: [],
-            debt: '',
             data: {},
-            users: {},
+            debt: '',
+            admin: [],
             debts_data: {}
         }
     },
     created() {
         this.login()
+        this.getUser()
         this.getDashboard()
         this.getAdminDashboard()
         this.getUserDebts()
         this.getFewUnpaidServices()
-        this.getDebts()
+        
     },
     methods:{
         login(){
@@ -711,48 +733,106 @@ export default {
                     name: '/'
                 })
             }else{
-                this.lastname = User.lastname()
-                this.middlename = User.middlename()
-                this.firstname = User.firstname()
-                this.role = User.role()
-                this.id = User.id()
-                if(this.middlename == 'null'){
-                    this.$router.push({
-                        name: 'edit-profile'
-                    })
-                }
+                this.token = User.token()
             }
         },
-        getDashboard() {
-            axios.get("/api/dashboard-landlord/" + this.id)
-                .then(({ data }) => (this.dashboard = data))
-                .catch();
+        getUser(){
+            axios.get('/api/v1/user/' + this.token, {
+                headers: {
+                    Authorization: 'Bearer ' + this.token,
+                    Accept: 'application/json'
+                }
+           }).then(response => (this.user = response.data))
+            .catch((error) => {
+                console.log(error)
+                if (error.response.status == 401) {
+                    this.$router.push({
+                        name: 'logout'
+                    })
+                }
+            })
+        },
+        getDashboard(){
+            axios.get('/api/v1/dashboard-landlord/' + this.token, {
+                headers: {
+                    Authorization: 'Bearer ' + this.token,
+                    Accept: 'application/json'
+                }
+           }).then(response => (this.dashboard = response.data))
+            .catch((error) => {
+                console.log(error)
+                if (error.response.status == 401) {
+                    this.$router.push({
+                        name: 'logout'
+                    })
+                }
+            })
         },
         getAdminDashboard(){
-            axios.get("/api/dashboard-admin")
-                .then(({ data }) => (this.admin = data))
-                .catch();
+            axios.get('/api/v1/dashboard-admin', {
+                    headers: {
+                        Authorization: 'Bearer ' + this.token,
+                        Accept: 'application/json'
+                    }
+            }).then(response => (this.admin = response.data))
+            .catch((error) => {
+                console.log(error)
+                if (error.response.status == 401) {
+                    this.$router.push({
+                        name: 'logout'
+                    })
+                }
+            })
         },
         getUserDebts(){
-            axios.get("/api/user-debts/" + this.id)
-                .then(({ data }) => (this.debt = data))
-                .catch();
+            axios.get('/api/v1/user-debts/' + this.token, {
+                headers: {
+                    Authorization: 'Bearer ' + this.token,
+                    Accept: 'application/json'
+                }
+           }).then(response => (this.debt = response.data))
+            .catch((error) => {
+                console.log(error)
+                if (error.response.status == 401) {
+                    this.$router.push({
+                        name: 'logout'
+                    })
+                }
+            })
         },
         getFewUnpaidServices(){
-            axios.get("/api/few-unpaid-services/" + this.id)
-                .then(({ data }) => (this.data = data))
-                .catch();
-        },
-        getDebtors(){
-            axios.get("/api/few-unpaid-services/")
-                .then(({ data }) => (this.user = data))
-                .catch();
+            axios.get('/api/v1/few-unpaid-services/' + this.token, {
+                headers: {
+                    Authorization: 'Bearer ' + this.token,
+                    Accept: 'application/json'
+                }
+           }).then(response => (this.data = response.data))
+            .catch((error) => {
+                console.log(error)
+                if (error.response.status == 401) {
+                    this.$router.push({
+                        name: 'logout'
+                    })
+                }
+            })
         },
         getDebts(){
-            axios.get("/api/debts/")
-                .then(({ data }) => (this.debts_data = data))
-                .catch();
+            axios.get('/api/v1/debts', {
+                    headers: {
+                        Authorization: 'Bearer ' + this.token,
+                        Accept: 'application/json'
+                    }
+            }).then(response => (this.debts_data = response.data))
+            .catch((error) => {
+                console.log(error)
+                if (error.response.status == 401) {
+                    this.$router.push({
+                        name: 'logout'
+                    })
+                }
+            })
         }
+        
     }
 }
 </script>

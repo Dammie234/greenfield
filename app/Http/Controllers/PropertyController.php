@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Property;
+use App\User;
 use Illuminate\Http\Request;
 
 class PropertyController extends Controller
@@ -12,12 +13,17 @@ class PropertyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($user_id)
+    public function index($token)
     {
-        $properties = Property::where('user_id', $user_id)->get();
+        $user = User::where('token', $token)->first();
+        $properties = Property::where('user_id', $user->id)->get();
         return response()->json($properties);
     }
-
+    public function properties($id)
+    {
+        $properties = Property::where('user_id', $id)->get();
+        return response()->json($properties);
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -43,8 +49,9 @@ class PropertyController extends Controller
             'property_category' => 'required',
             'property_type' => 'required'
         ]);
+        $user = User::where('token', $request->token)->first();
         $data = [
-            'user_id' => $request->user_id,
+            'user_id' => $user->id,
             'house_number' => $request->house_number,
             'street_name' => $request->street_name,
             'property_class' => $request->property_class,
@@ -60,9 +67,9 @@ class PropertyController extends Controller
      * @param  \App\Property  $property
      * @return \Illuminate\Http\Response
      */
-    public function show(Property $property)
+    public function show($id)
     {
-        $property = Property::where('id', $property->id)->first();
+        $property = Property::where('id', $id)->first();
         return response()->json($property);
     }
 
@@ -84,7 +91,7 @@ class PropertyController extends Controller
      * @param  \App\Property  $property
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Property $property)
+    public function update(Request $request, $id)
     {
         $this->validate($request, [
             'house_number' => 'required|integer',
@@ -100,7 +107,7 @@ class PropertyController extends Controller
             'property_category' => $request->property_category,
             'property_type' => $request->property_type
         ];
-        Property::where('id', $property->id)->update($data);
+        Property::where('id', $id)->update($data);
     }
 
     /**
@@ -109,8 +116,8 @@ class PropertyController extends Controller
      * @param  \App\Property  $property
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Property $property)
+    public function destroy($id)
     {
-        Property::where('id', $property->id)->delete();
+        Property::where('id', $id)->delete();
     }
 }

@@ -400,11 +400,8 @@ export default {
         return {
             team1: 'assets/img/team-1-800x800.jpg',
             team2: '../../assets/img/team-2-800x800.jpg',
-            lastname: '',
-            middlename: '',
-            firstname: '',
             id: '',
-            role: '',
+            token: '',
             form:{
                 landlord_user_id: '',
                 email: '',
@@ -449,10 +446,7 @@ export default {
                     name: '/'
                 })
             }else{
-                this.lastname = User.lastname()
-                this.middlename = User.middlename()
-                this.firstname = User.firstname()
-                this.role = User.role()
+                this.token = User.token()
                 this.id = User.id()
                 this.form.landlord_user_id = User.id()
             }
@@ -468,9 +462,21 @@ export default {
             if (this.edit_tenant == false) {
                 this.edit_tenant = true
                 this.tenant_id = id
-                axios.get("/api/tenant/" + id)
-                .then(({ data }) => (this.form = data))
-                .catch()
+                
+                axios.get('/api/v1/tenant/' + id, {
+                        headers: {
+                            Authorization: 'Bearer ' + this.token,
+                            Accept: 'application/json'
+                        }
+                }).then(response => (this.form = response.data))
+                .catch((error) => {
+                    console.log(error)
+                    if (error.response.status == 401) {
+                        this.$router.push({
+                            name: 'logout'
+                        })
+                    }
+                })
             }
         },
         closeTenant(){
@@ -492,10 +498,21 @@ export default {
                     third_party_whatsapp: ''
                 }
         },
-        getProperties() {
-            axios.get("/api/properties/" + this.id)
-                .then(({ data }) => (this.properties = data))
-                .catch();
+        getProperties(){
+            axios.get('/api/v1/properties/' + this.token, {
+                headers: {
+                    Authorization: 'Bearer ' + this.token,
+                    Accept: 'application/json'
+                }
+           }).then(response => (this.properties = response.data))
+            .catch((error) => {
+                console.log(error)
+                if (error.response.status == 401) {
+                    this.$router.push({
+                        name: 'logout'
+                    })
+                }
+            })
         },
         store() {
             this.loading = true
@@ -529,10 +546,22 @@ export default {
                     this.loading =  false
                 }) 
         },
+        
         getTenants() {
-            axios.get("/api/tenants/" + this.id)
-                .then(({ data }) => (this.tenants = data))
-                .catch();
+            axios.get('/api/v1/tenants/' + this.token, {
+                    headers: {
+                        Authorization: 'Bearer ' + this.token,
+                        Accept: 'application/json'
+                    }
+            }).then(response => (this.tenants = response.data))
+            .catch((error) => {
+                console.log(error)
+                if (error.response.status == 401) {
+                    this.$router.push({
+                        name: 'logout'
+                    })
+                }
+            })
         },
         deleteTenant(id) {
             Swal.fire({

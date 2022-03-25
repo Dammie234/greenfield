@@ -23,6 +23,7 @@ class CreateUsersTable extends Migration
             $table->tinyInteger('role');
             $table->string('email')->unique();
             $table->string('password');
+            $table->mediumText('token')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

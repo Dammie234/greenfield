@@ -101,7 +101,7 @@
                                                 <tr v-for="(service, index) in services" :key="index">
                                                     <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-md whitespace-nowrap p-4">{{service.name}}</td>
                                                     <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-md whitespace-nowrap p-4">{{service.audience}}</td>
-                                                    <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-md whitespace-nowrap p-4">{{service.amount}}</td>
+                                                    <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-md whitespace-nowrap p-4">&#8358;{{service.amount | numeral('0,0.00')}}</td>
                                                     <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-md whitespace-nowrap p-4">{{service.payment_type}}</td>
                                                     <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-md whitespace-nowrap p-4">{{service.created_at | moment("MMMM, YYYY")}}</td>
                                                 </tr>
@@ -135,16 +135,13 @@
 
 <script>
 export default {
-    name: 'edit profile',
+    name: 'service',
     data() {
         return {
             team1: 'assets/img/team-1-800x800.jpg',
             team2: '../../assets/img/team-2-800x800.jpg',
-            lastname: '',
-            middlename: '',
-            firstname: '',
             id: '',
-            role: '',
+            token: '',
             add_service: false,
             form:{
                 name: null,
@@ -159,7 +156,6 @@ export default {
     },
     created() {
         this.login()
-        this.getProfile()
         this.getServices()
     },
     methods:{
@@ -169,22 +165,10 @@ export default {
                     name: '/'
                 })
             }else{
-                this.lastname = User.lastname()
-                this.middlename = User.middlename()
-                this.firstname = User.firstname()
-                this.role = User.role()
+                this.token = User.token()
                 this.id = User.id()
-                if(this.middlename == 'null'){
-                    this.$router.push({
-                        name: 'edit-profile'
-                    })
-                }
+               
             }
-        },
-        getProfile() {
-            axios.get("/api/profile/" + this.id)
-                .then(({ data }) => (this.form = data))
-                .catch();
         },
         addService(){
             if (this.add_service == false) {
@@ -212,11 +196,22 @@ export default {
                     this.loading =  false
                 }) 
         },
-        getServices() {
-            axios.get("/api/service")
-                .then(({ data }) => (this.services = data))
-                .catch();
-        },
+        getServices(){
+            axios.get('/api/v1/service', {
+                headers: {
+                    Authorization: 'Bearer ' + this.token,
+                    Accept: 'application/json'
+                }
+           }).then(response => (this.services = response.data))
+            .catch((error) => {
+                console.log(error)
+                if (error.response.status == 401) {
+                    this.$router.push({
+                        name: 'logout'
+                    })
+                }
+            })
+        }
     }
 }
 </script>

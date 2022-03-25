@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3a28f6dcc2d599f0d7e023bdbd72d820",
+    "content-hash": "e05372f0c339316aa2e8941abce2ed93",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -764,6 +764,53 @@
                 "source": "https://github.com/guzzle/psr7/tree/1.8.2"
             },
             "time": "2021-04-26T09:17:50+00:00"
+        },
+        {
+            "name": "interswitch/laravel-interswitch",
+            "version": "v1.1.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/techquest/isw-laravel-sdk.git",
+                "reference": "fe22500c8251793e5f713e74303dd5bc2297f812"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/techquest/isw-laravel-sdk/zipball/fe22500c8251793e5f713e74303dd5bc2297f812",
+                "reference": "fe22500c8251793e5f713e74303dd5bc2297f812",
+                "shasum": ""
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Interswitch\\Interswitch\\InterswitchServiceProvider"
+                    ],
+                    "aliases": {
+                        "Interswitch": "Interswitch\\Interswitch\\Facade\\Interswitch"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Interswitch\\Interswitch\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Toyosi Oyelayo",
+                    "email": "techquest@interswitchgroup.com"
+                }
+            ],
+            "description": "This package simplifies the integration of Quickteller Business",
+            "support": {
+                "issues": "https://github.com/techquest/isw-laravel-sdk/issues",
+                "source": "https://github.com/techquest/isw-laravel-sdk/tree/v1.1.4"
+            },
+            "time": "2021-08-04T11:19:59+00:00"
         },
         {
             "name": "laravel/framework",
@@ -7288,5 +7335,5 @@
         "php": "^7.2.5"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.1.0"
+    "plugin-api-version": "2.0.0"
 }

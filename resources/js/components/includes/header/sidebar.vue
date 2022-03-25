@@ -76,45 +76,45 @@
                         </router-link>
                     </li>
 
-                    <li class="items-center" v-if="role == 2">
+                    <li class="items-center" v-if="user.role == 2">
                         <router-link to="/property" class="text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500">
                         <i class="fas fa-building mr-2 text-sm text-blueGray-300"></i>
                             Properties
                         </router-link>
                     </li>
 
-                    <li class="items-center" v-if="role == 2">
+                    <li class="items-center" v-if="user.role == 2">
                         <router-link to="/apartment" class="text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500">
                         <i class="fas fa-house-user mr-2 text-sm text-blueGray-300"></i>
                             Apartments
                         </router-link>
                     </li>
 
-                    <li class="items-center" v-if="role == 2">
+                    <li class="items-center" v-if="user.role == 2">
                         <router-link to="/tenant" class="text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500">
                         <i class="fas fa-users mr-2 text-sm text-blueGray-300"></i>
                             Tenants
                         </router-link>
                     </li>
-                    <li class="items-center" v-if="role == 1">
+                    <li class="items-center" v-if="user.role == 1">
                         <router-link to="/landlord" class="text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500">
                         <i class="fas fa-users mr-2 text-sm text-blueGray-300"></i>
                             Landlords/Landladies
                         </router-link>
                     </li>
-                    <li class="items-center" v-if="role == 1">
+                    <li class="items-center" v-if="user.role == 1">
                         <router-link to="/service" class="text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500">
                         <i class="fas fa-house-user mr-2 text-sm text-blueGray-300"></i>
                             Services
                         </router-link>
                     </li>
-                     <li class="items-center" v-if="role == 1">
+                     <li class="items-center" v-if="user.role == 1">
                         <router-link to="/debtors" class="text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500">
                         <i class="fas fa-users mr-2 text-sm text-blueGray-300"></i>
                             Debtors
                         </router-link>
                     </li>
-                    <li class="items-center" v-if="role == 2 || role == 3">
+                    <li class="items-center" v-if="user.role == 2 || user.role == 3">
                         <router-link to="/services" class="text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500">
                         <i class="fas fa-house-user mr-2 text-sm text-blueGray-300"></i>
                             Services
@@ -131,7 +131,7 @@
                     <li class="items-center">
                         <router-link to="/logout" class="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block">
                         <i class="fas fa-sign-out-alt text-blueGray-300 mr-2 text-sm"></i>
-                            Sign Out
+                            Sign Out 
                         </router-link>
                     </li>
                 </ul>
@@ -151,11 +151,16 @@ export default {
         return {
             team1: 'assets/img/team-1-800x800.jpg',
             logo: '../assets/img/logo.jpg',
-            role: ''
+            token: '',
+            user: '',
+            data: '',
+
         }
     },
     created(){
         this.login()
+        this.getUser()
+        this.checkUser()
     },
     methods:{
         login(){
@@ -164,11 +169,44 @@ export default {
                     name: '/'
                 })
             }else{
-
-                this.role = User.role()
-                this.id = User.id()
-
+                this.token = User.token()
             }
+        },
+        getUser(){
+            axios.get('/api/v1/user/' + this.token, {
+                headers: {
+                    Authorization: 'Bearer ' + this.token,
+                    Accept: 'application/json'
+                }
+           }).then(response => (this.user = response.data))
+            .catch((error) => {
+                console.log(error)
+                if (error.response.status == 401) {
+                    this.$router.push({
+                        name: 'logout'
+                    })
+                }
+            })
+        },
+        checkUser(){
+            axios.get('/api/v1/check-user/' + this.token, {
+                headers: {
+                    Authorization: 'Bearer ' + this.token,
+                    Accept: 'application/json'
+                }
+           }).then(response => (this.data = response.data))
+            .catch((error) => {
+                console.log(error)
+                if (error.response.status == 401) {
+                    this.$router.push({
+                        name: 'edit-profile'
+                    })
+                    Toast.fire({
+                        icon: 'warning',
+                        title: 'Update Account to continue'
+                    })
+                }
+            })
         }
     }
 }

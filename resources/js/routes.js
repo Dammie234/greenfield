@@ -9,6 +9,7 @@ let home = require('./components/home.vue').default;
 let profile = require('./components/profile/index.vue').default;
 let edit_profile = require('./components/profile/edit.vue').default;
 
+
 let property = require('./components/property/index.vue').default;
 
 let apartment = require('./components/apartment/index.vue').default;
@@ -31,6 +32,8 @@ let monthly_services = require('./components/services/monthly.vue').default;
 let one_off_services = require('./components/services/one_off.vue').default;
 
 let debtors = require('./components/debtors/index.vue').default;
+
+let monthly_cart = require('./components/cart/monthly.vue').default;
 
 let template = require('./components/template.vue').default;
 
@@ -67,6 +70,8 @@ export const routes = [
     { path: '/one-off-services/:id', component: one_off_services, name: 'one-off-services' },
 
     { path: '/debtors', component: debtors, name: 'debtors' },
+
+    { path: '/monthly-cart', component: monthly_cart, name: 'monthly-cart' },
 
     { path: '/template', component: template, name: 'template'}
   ]

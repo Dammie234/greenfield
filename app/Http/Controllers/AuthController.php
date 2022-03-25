@@ -20,10 +20,10 @@ class AuthController extends Controller
      *
      * @return void
      */
-    public function __construct()
-    {
-        $this->middleware('JWT', ['except' => ['login', 'signup', 'postEmail', 'getPassword', 'updatePassword']]);
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware('JWT', ['except' => ['login', 'signup', 'postEmail', 'getPassword', 'updatePassword']]);
+    // }
 
     /**
      * Get a JWT token via given credentials.
@@ -41,6 +41,9 @@ class AuthController extends Controller
         $credentials = $request->only('email', 'password');
 
         if ($token = $this->guard()->attempt($credentials)) {
+            User::where('email', $request->email)->update([
+                'token' => $token
+            ]);
             return $this->respondWithToken($token);
         }
 

@@ -105,18 +105,15 @@ export default {
         return {
             team1: 'assets/img/team-1-800x800.jpg',
             team2: '../../assets/img/team-2-800x800.jpg',
-            lastname: '',
-            middlename: '',
-            firstname: '',
             id: '',
-            role: '',
+            token: '',
             profile: '',
             apartments: []
         }
     },
     created() {
         this.login()
-        this.getProfile()
+        this.getLandlord()
         this.getApartments();
     },
     methods:{
@@ -126,30 +123,45 @@ export default {
                     name: '/'
                 })
             }else{
-                this.lastname = User.lastname()
-                this.middlename = User.middlename()
-                this.firstname = User.firstname()
-                this.role = User.role()
+                this.token = User.token()
                 this.id = User.id()
-                if(this.middlename == 'null'){
-                    this.$router.push({
-                        name: 'edit-profile'
-                    })
-                }
+                
             }
         },
-        getProfile() {
+        getLandlord() {
             let id = this.$route.params.id
-            axios.get("/api/profile/" + id)
-                .then(({ data }) => (this.profile = data))
-                .catch();
+            axios.get('/api/v1/get-profile/' + id, {
+                headers: {
+                    Authorization: 'Bearer ' + this.token,
+                    Accept: 'application/json'
+                }
+           }).then(response => (this.profile = response.data))
+            .catch((error) => {
+                console.log(error)
+                if (error.response.status == 401) {
+                    this.$router.push({
+                        name: 'logout'
+                    })
+                }
+            })
         },
         
         getApartments() {
             let id = this.$route.params.id
-            axios.get("/api/apartments/" + id)
-                .then(({ data }) => (this.apartments = data))
-                .catch();
+            axios.get('/api/v1/user-apartments/' + id, {
+                headers: {
+                    Authorization: 'Bearer ' + this.token,
+                    Accept: 'application/json'
+                }
+           }).then(response => (this.apartments = response.data))
+            .catch((error) => {
+                console.log(error)
+                if (error.response.status == 401) {
+                    this.$router.push({
+                        name: 'logout'
+                    })
+                }
+            })
         },
     }
 }

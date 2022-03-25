@@ -35,7 +35,7 @@
                                                 Mobile Phone
                                             </th>
                                             <th class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                                                WhatsApp Phone Number
+                                                WhatsApp
                                             </th>
                                             <th class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
                                                 Gender
@@ -48,7 +48,7 @@
                                             </th>
                                         </tr>
                                         </thead>
-                                        <tbody v-if="role == 1">
+                                        <tbody v-if="profile.role == 1">
                                             <tr v-for="(landlord, index) in filterSearch" :key="index">
                                                 <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                                                     {{landlord.salutation + ' ' + landlord.lastname + ' ' + landlord.firstname}}
@@ -69,17 +69,17 @@
                                                     {{landlord.house_number + ', ' + landlord.street_name}}
                                                 </td>
                                                 <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                                    <router-link :to="{name: 'landlord-profile', params:{id: landlord.id}}" class="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
-                                                        View Profile
+                                                    <router-link :to="{name: 'landlord-profile', params:{id: landlord.id}}" class="bg-orange-500 text-white active:bg-orange-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" title="View Profile">
+                                                        <i class="fa fa-user"></i>
                                                     </router-link>
-                                                    <router-link :to="{name: 'landlord-properties', params:{id: landlord.id}}" class="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
-                                                        View Properties
+                                                    <router-link :to="{name: 'landlord-properties', params:{id: landlord.id}}" class="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" title="View Properties">
+                                                        <i class="fa fa-home"></i>
                                                     </router-link>
-                                                    <router-link :to="{name: 'landlord-apartments', params:{id: landlord.id}}" class="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
-                                                        View Apartments
+                                                    <router-link :to="{name: 'landlord-apartments', params:{id: landlord.id}}" class="bg-red-500 text-white active:bg-red-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" title="View Apartments">
+                                                        <i class="fa fa-home"></i>
                                                     </router-link>
-                                                    <router-link :to="{name: 'landlord-tenants', params:{id: landlord.id}}" class="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
-                                                        View Tenants
+                                                    <router-link :to="{name: 'landlord-tenants', params:{id: landlord.id}}" class="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" title="View Tenants">
+                                                        <i class="fa fa-house-user"></i>
                                                     </router-link>
                                                 </td>
                                             </tr>
@@ -106,13 +106,11 @@ export default {
         return {
             team1: 'assets/img/team-1-800x800.jpg',
             team2: '../../assets/img/team-2-800x800.jpg',
-            lastname: '',
-            middlename: '',
-            firstname: '',
             id: '',
-            role: '',
+            token: '',
             landlords: [],
-            searchTerm: ''
+            searchTerm: '',
+            profile: ''
         }
     },
     created() {
@@ -134,27 +132,41 @@ export default {
                     name: '/'
                 })
             }else{
-                this.lastname = User.lastname()
-                this.middlename = User.middlename()
-                this.firstname = User.firstname()
-                this.role = User.role()
+                this.token = User.token()
                 this.id = User.id()
-                if(this.middlename == 'null'){
-                    this.$router.push({
-                        name: 'edit-profile'
-                    })
-                }
             }
         },
         getProfile() {
-            axios.get("/api/profile/" + this.id)
-                .then(({ data }) => (this.form = data))
-                .catch();
+             axios.get('/api/v1/profile/' + this.token, {
+                headers: {
+                    Authorization: 'Bearer ' + this.token,
+                    Accept: 'application/json'
+                }
+           }).then(response => (this.profile = response.data))
+            .catch((error) => {
+                console.log(error)
+                if (error.response.status == 401) {
+                    this.$router.push({
+                        name: 'logout'
+                    })
+                }
+            })
         },
         getLandlords() {
-            axios.get("/api/landlords")
-                .then(({ data }) => (this.landlords = data))
-                .catch();
+             axios.get('/api/v1/landlords', {
+                headers: {
+                    Authorization: 'Bearer ' + this.token,
+                    Accept: 'application/json'
+                }
+           }).then(response => (this.landlords = response.data))
+            .catch((error) => {
+                console.log(error)
+                if (error.response.status == 401) {
+                    this.$router.push({
+                        name: 'logout'
+                    })
+                }
+            })
         }
     }
 }

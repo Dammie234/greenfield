@@ -14,6 +14,7 @@ import Swal from 'sweetalert2'
 import Notification from './helpers/notification'
 import NProgress from 'vue-nprogress'
 import NprogressContainer from 'vue-nprogress/src/NprogressContainer'
+import vueNumeralFilterInstaller from 'vue-numeral-filter'
 
 import AuthFooter from './components/includes/footer/auth_footer'
 import Sidebar from './components/includes/header/sidebar.vue'
@@ -39,6 +40,7 @@ window.Notification = Notification
 Vue.use(VueRouter)
 Vue.use(NProgress)
 Vue.use(require('vue-moment'))
+Vue.use(vueNumeralFilterInstaller, { locale: 'en-gb' })
 const nprogress = new NProgress()
 Vue.component('nprogress-container', NprogressContainer)
 Vue.component('auth-footer', AuthFooter)

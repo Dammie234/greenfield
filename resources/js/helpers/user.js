@@ -6,13 +6,9 @@ class User{
 
 	responseAfterLogin(res){
 		const access_token = res.data.access_token
-		const lastname = res.data.user.lastname
-		const middlename = res.data.user.middlename
-		const firstname = res.data.user.firstname
-
-		const role = res.data.user.role
+		
 		if (Token.isValid(access_token)) {
-			AppStorage.store(access_token,lastname,middlename,firstname,role)
+			AppStorage.store(access_token)
 		}
 	}
  
@@ -29,25 +25,10 @@ class User{
 		return this.hasToken()
 	}
 
-	lastname(){
+	
+	token(){
 		if (this.loggedIn()) {
-			return localStorage.getItem('lastname');
-		}
-	}
-
-	middlename(){
-		if (this.loggedIn()) {
-			return localStorage.getItem('middlename');
-		}
-	}
-	firstname(){
-		if (this.loggedIn()) {
-			return localStorage.getItem('firstname');
-		}
-	}
-	role(){
-		if (this.loggedIn()) {
-			return localStorage.getItem('role');
+			return localStorage.getItem('token');
 		}
 	}
 

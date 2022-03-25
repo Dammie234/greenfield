@@ -252,13 +252,9 @@ export default {
         return {
             team1: 'assets/img/team-1-800x800.jpg',
             team2: '../../assets/img/team-2-800x800.jpg',
-            lastname: '',
-            middlename: '',
-            firstname: '',
-            id: '',
-            role: '',
+            token: '',
             form:{
-                user_id: null,
+                token: null,
                 house_number: null,
                 street_name: null,
                 property_class: null,
@@ -272,7 +268,7 @@ export default {
             add_property:false,
             edit_property:false,
             property_id: '',
-            classes: ['Stand alone Private Residential', 'Private &amp; Commercial Joint', 'Fully Commerial'],
+            classes: ['Stand alone Private Residential', 'Private & Commercial Joint', 'Fully Commerial'],
             categories: ['Residential', 'Commercial'],
             residentials: ['Flat', 'Block of Flat', 'Semi-detached House', 'Terraced House', 'Bungalow', 'Town House', 'Developing'],
             commercials: ['Shopping Complex', 'Plaza', 'Hotel', 'Hall', 'Event Centre', 'School', 'Church', 'Mosque', 'Warehouse', 'Developing'],
@@ -291,23 +287,26 @@ export default {
                     name: '/'
                 })
             }else{
-                this.lastname = User.lastname()
-                this.middlename = User.middlename()
-                this.firstname = User.firstname()
-                this.role = User.role()
-                this.id = User.id()
-                this.form.user_id = User.id()
-                if(this.middlename == 'null'){
-                    this.$router.push({
-                        name: 'edit-profile'
-                    })
-                }
+                this.token = User.token()
+                this.form.token = User.token()
+                
             }
         },
-        getProfile() {
-            axios.get("/api/profile/" + this.id)
-                .then(({ data }) => (this.profile = data))
-                .catch();
+        getProfile(){
+            axios.get('/api/v1/profile/' + this.token, {
+                headers: {
+                    Authorization: 'Bearer ' + this.token,
+                    Accept: 'application/json'
+                }
+           }).then(response => (this.profile = response.data))
+            .catch((error) => {
+                console.log(error)
+                if (error.response.status == 401) {
+                    this.$router.push({
+                        name: 'logout'
+                    })
+                }
+            })
         },
         addProperty(){
             if (this.add_property == false) {
@@ -320,16 +319,28 @@ export default {
             if (this.edit_property == false) {
                 this.edit_property = true
                 this.property_id = id
-                axios.get("/api/property/" + this.property_id)
-                .then(({ data }) => (this.form = data))
-                .catch();
+                
+                axios.get('/api/v1/property/' + this.property_id, {
+                        headers: {
+                            Authorization: 'Bearer ' + this.token,
+                            Accept: 'application/json'
+                        }
+                }).then(response => (this.form = response.data))
+                .catch((error) => {
+                    console.log(error)
+                    if (error.response.status == 401) {
+                        this.$router.push({
+                            name: 'logout'
+                        })
+                    }
+                })
             }
         },
         closeProperty(){
             this.edit_property = false
             this.property_id = ''
             this.form = {
-                user_id: null,
+                token: null,
                 house_number: null,
                 street_name: null,
                 property_class: null,
@@ -339,6 +350,7 @@ export default {
         },
         store() {
             this.loading = true
+            this.form.token = this.token
             axios.post('/api/property', this.form)
                 .then(res => {
                     Toast.fire({
@@ -407,11 +419,22 @@ export default {
                 }
             })
         },
-        getProperties() {
-            axios.get("/api/properties/" + this.id)
-                .then(({ data }) => (this.properties = data))
-                .catch();
-        },
+        getProperties(){
+            axios.get('/api/v1/properties/' + this.token, {
+                headers: {
+                    Authorization: 'Bearer ' + this.token,
+                    Accept: 'application/json'
+                }
+           }).then(response => (this.properties = response.data))
+            .catch((error) => {
+                console.log(error)
+                if (error.response.status == 401) {
+                    this.$router.push({
+                        name: 'logout'
+                    })
+                }
+            })
+        }
     }
 }
 </script>

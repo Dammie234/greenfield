@@ -9,21 +9,31 @@ use Illuminate\Http\Request;
 
 class BiodataController extends Controller
 {
-    public function profile($id)
+    public function profile($token)
     {
         $profile = DB::table('users')
                     ->leftJoin('biodatas', 'biodatas.user_id', '=', 'users.id')
-                    ->where('users.id', $id)
-                    ->select('users.salutation', 'users.lastname', 'users.middlename', 'users.firstname', 'users.mobile_phone', 'users.email', 'biodatas.*')
+                    ->where('users.token', $token)
+                    ->select('users.salutation', 'users.lastname', 'users.middlename', 'users.firstname', 'users.role', 'users.mobile_phone', 'users.email', 'biodatas.*')
                     ->first();
         return response()->json($profile);
     }
-    public function tenantProfile($id)
+    public function getProfile($id)
     {
         $profile = DB::table('users')
                     ->leftJoin('biodatas', 'biodatas.user_id', '=', 'users.id')
-                    ->leftJoin('tenants', 'tenants.user_id', '=', 'users.id')
                     ->where('users.id', $id)
+                    ->select('users.salutation', 'users.lastname', 'users.middlename', 'users.firstname', 'users.role', 'users.mobile_phone', 'users.email', 'biodatas.*')
+                    ->first();
+        return response()->json($profile);
+    }
+    public function tenantProfile($token)
+    {
+        $user = User::where('token', $token)->first();
+        $profile = DB::table('users')
+                    ->leftJoin('biodatas', 'biodatas.user_id', '=', 'users.id')
+                    ->leftJoin('tenants', 'tenants.user_id', '=', 'users.id')
+                    ->where('users.id', $user->id)
                     ->select('users.salutation', 'users.lastname', 'users.middlename', 'users.firstname', 'users.mobile_phone', 'users.email', 'biodatas.*', 
                     'tenants.third_party_name', 'third_party_phone', 'third_party_email', 'third_party_whatsapp')
                     ->first();
@@ -43,7 +53,7 @@ class BiodataController extends Controller
                         ->first();
         return response()->json($landlord);
     }
-    public function updateProfile(Request $request, $user_id)
+    public function updateProfile(Request $request, $token)
     {
         $this->validate($request, [
             'date_of_birth' => 'required|date',
@@ -65,7 +75,12 @@ class BiodataController extends Controller
             'next_of_kin_phone_number' => 'required|string|max:11',
         ]);
         
-        date_default_timezone_set('Africa/Lagos');
+        $user = User::where('token', $token)->first();
+        if ($user->role == 2) {
+            User::where('token', $token)->update([
+                'status' => true
+            ]);
+        }
         $data = [
             'lastname' => $request->lastname,
             'middlename' => $request->middlename,
@@ -73,10 +88,11 @@ class BiodataController extends Controller
             'mobile_phone' => $request->mobile_phone,
             'salutation' => $request->salutation,
         ];
-        User::where('id', $user_id)->update($data);
+        User::where('token', $token)->update($data);
         if (isset($request->password)) {
-            User::where('id', $user_id)->update([
-                'password' => bcrypt($request->password)
+            User::where('token', $token)->update([
+                'password' => bcrypt($request->password),
+                'status' => true
             ]);
         }
         $data = [
@@ -94,7 +110,7 @@ class BiodataController extends Controller
             'relationship_with_next_of_kin' => $request->relationship_with_next_of_kin,
             'next_of_kin_phone_number' => $request->next_of_kin_phone_number
         ];
-        Biodata::where('user_id', $user_id)->update($data);
+        Biodata::where('user_id', $user->id)->update($data);
         if (isset($request->third_party_name) || isset($request->third_party_email) || isset($request->third_party_phone) || isset($request->third_party_whatsapp)) {
             $data = [
                 'third_party_name' => $request->third_party_name,
@@ -102,7 +118,7 @@ class BiodataController extends Controller
                 'third_party_phone' => $request->third_party_phone,
                 'third_party_whatsapp' => $request->third_party_whatsapp
             ];
-            Tenant::where('user_id', $user_id)->update($data);
+            Tenant::where('user_id', $user->id)->update($data);
         }
     }
 }

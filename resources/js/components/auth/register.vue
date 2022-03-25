@@ -8,7 +8,7 @@
         ></div>
         <div class="container mx-auto px-4 h-full">
           <div class="flex content-center items-center justify-center h-full">
-            <div class="w-full lg:w-6/12 px-4">
+            <div class="w-full lg:w-8/12 px-4">
               <div
                 class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-200 border-0"
               >

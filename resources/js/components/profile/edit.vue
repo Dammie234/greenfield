@@ -8,17 +8,7 @@
                 <!-- Header -->
                 <div class="relative bg-light-green md:pt-32 pb-32 pt-12">
                     <div class="px-4 md:px-10 mx-auto w-full">
-                        <div class="text-white px-6 py-4 border-0 rounded relative mb-4 bg-red-600" v-if="middlename == 'null'">
-                            <span class="text-xl inline-block mr-5 align-middle">
-                                <i class="fas fa-bell"></i>
-                            </span>
-                            <span class="inline-block align-middle mr-8">
-                                <b class="capitalize">Whoops!</b> You have to complete your profile to continue.
-                            </span>
-                            <button class="absolute bg-transparent text-2xl font-semibold leading-none right-0 top-0 mt-4 mr-6 outline-none focus:outline-none" onclick="closeAlert(event)">
-                                <span>×</span>
-                            </button>
-                        </div>
+                        
                     </div>
                     
                 </div>
@@ -85,20 +75,20 @@
                                                         <input v-model="form.email" disabled type="email" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150">
                                                     </div>
                                                 </div>
-                                                <div class="w-full lg:w-4/12 px-4" v-show="role == 3 && middlename == 'null' ? true : false" style="displat:none">
+                                                <div class="w-full lg:w-4/12 px-4" v-if="user.role == 3">
                                                     <div class="relative w-full mb-3">
                                                         <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" htmlfor="grid-password">
                                                             Password
                                                         </label>
-                                                        <input v-model="form.password" type="password" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150">
+                                                        <input v-model="form.password" type="password" required class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150">
                                                     </div>
                                                 </div>
-                                                <div class="w-full lg:w-4/12 px-4" v-show="role == 3 && middlename == 'null' ? true : false" style="displat:none">
+                                                <div class="w-full lg:w-4/12 px-4" v-if="user.role == 3">
                                                     <div class="relative w-full mb-3">
                                                         <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" htmlfor="grid-password">
                                                             Confirm Password
                                                         </label>
-                                                        <input v-model="form.password_confirmation" type="password" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150">
+                                                        <input v-model="form.password_confirmation" required type="password" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150">
                                                     </div>
                                                 </div>
                                             </div>
@@ -266,9 +256,9 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <hr class="mt-6 border-b-1 border-blueGray-300" v-show="role == 3 ? true : false" style="display:none;">
-                                            <h6 class="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase" v-show="role == 3 ? true : false" style="display:none;">If Property is managed by a third party</h6>
-                                            <div class="flex flex-wrap" v-show="role == 3 ? true : false" style="display:none;">
+                                            <hr class="mt-6 border-b-1 border-blueGray-300" v-if="user.role == 3">
+                                            <h6 class="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase" v-if="user.role == 3">If Property is managed by a third party</h6>
+                                            <div class="flex flex-wrap" v-if="user.role == 3">
                                                 <div class="w-full lg:w-4/12 px-4">
                                                     <div class="relative w-full mb-3">
                                                         <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" htmlfor="grid-password">
@@ -329,11 +319,8 @@ export default {
         return {
             team1: 'assets/img/team-1-800x800.jpg',
             team2: '../../assets/img/team-2-800x800.jpg',
-            lastname: '',
-            middlename: '',
-            firstname: '',
-            id: '',
-            role: '',
+            token: '',
+            user: '',
             form:{
                 date_of_birth: '',
                 email: '',
@@ -378,6 +365,7 @@ export default {
     created() {
         this.login()
         this.getProfile()
+        this.getUser()
     },
     methods:{
         login(){
@@ -386,16 +374,28 @@ export default {
                     name: '/'
                 })
             }else{
-                this.lastname = User.lastname()
-                this.middlename = User.middlename()
-                this.firstname = User.firstname()
-                this.role = User.role()
-                this.id = User.id()
+                this.token = User.token()
             }
+        },
+        getUser(){
+            axios.get('/api/v1/user/' + this.token, {
+                headers: {
+                    Authorization: 'Bearer ' + this.token,
+                    Accept: 'application/json'
+                }
+           }).then(response => (this.user = response.data))
+            .catch((error) => {
+                console.log(error)
+                if (error.response.status == 401) {
+                    this.$router.push({
+                        name: 'logout'
+                    })
+                }
+            })
         },
         updateProfile() {
             this.loading = true
-            axios.patch('/api/profile/' + this.id, this.form)
+            axios.patch('/api/profile/' + this.token, this.form)
                 .then(res => {
                     Toast.fire({
                         icon: 'success',
@@ -421,10 +421,21 @@ export default {
                     this.loading =  false
                 }) 
         },
-        getProfile() {
-            axios.get("/api/tenant-profile/" + this.id)
-                .then(({ data }) => (this.form = data))
-                .catch();
+        getProfile(){
+            axios.get('/api/v1/tenant-profile/' + this.token, {
+                headers: {
+                    Authorization: 'Bearer ' + this.token,
+                    Accept: 'application/json'
+                }
+           }).then(response => (this.form = response.data))
+            .catch((error) => {
+                console.log(error)
+                if (error.response.status == 401) {
+                    this.$router.push({
+                        name: 'logout'
+                    })
+                }
+            })
         }
     }
 }

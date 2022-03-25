@@ -52,73 +52,97 @@
                                                     <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">{{'&#8358;' + service.amount}}</td>
                                                     <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">{{service.year}}</td>
                                                     <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                                        <span v-if="service.january == 1">-</span>
+                                                        <span v-if="service.january == 1">
+                                                            <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full bg-light-green text-white uppercase last:mr-0 mr-1">paid</span>
+                                                        </span>
                                                         <span v-else>
                                                             <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-blueGray-100 bg-red-600 uppercase last:mr-0 mr-1">unpaid</span>
                                                         </span>
                                                     </td>
                                                     <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                                        <span v-if="service.february == 1">-</span>
+                                                        <span v-if="service.february == 1">
+                                                            <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full bg-light-green text-white uppercase last:mr-0 mr-1">paid</span>
+                                                        </span>
                                                         <span v-else>
                                                             <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-blueGray-100 bg-red-600 uppercase last:mr-0 mr-1">unpaid</span>
                                                         </span>
                                                     </td>
                                                     <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                                        <span v-if="service.march == 1">-</span>
+                                                        <span v-if="service.march == 1">
+                                                            <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full bg-light-green text-white uppercase last:mr-0 mr-1">paid</span>
+                                                        </span>
                                                         <span v-else>
                                                             <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-blueGray-100 bg-red-600 uppercase last:mr-0 mr-1">unpaid</span>
                                                         </span>
                                                     </td>
                                                     <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                                        <span v-if="service.april == 1">-</span>
+                                                        <span v-if="service.april == 1">
+                                                            <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full bg-light-green text-white uppercase last:mr-0 mr-1">paid</span>
+                                                        </span>
                                                         <span v-else>
                                                             <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-blueGray-100 bg-red-600 uppercase last:mr-0 mr-1">unpaid</span>
                                                         </span>
                                                     </td>
                                                     <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                                        <span v-if="service.may == 1">-</span>
+                                                        <span v-if="service.may == 1">
+                                                            <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full bg-light-green text-white uppercase last:mr-0 mr-1">paid</span>
+                                                        </span>
                                                         <span v-else>
                                                             <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-blueGray-100 bg-red-600 uppercase last:mr-0 mr-1">unpaid</span>
                                                         </span>
                                                     </td>
                                                     <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                                        <span v-if="service.june == 1">-</span>
+                                                        <span v-if="service.june == 1">
+                                                            <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full bg-light-green text-white uppercase last:mr-0 mr-1">paid</span>
+                                                        </span>
                                                         <span v-else>
                                                             <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-blueGray-100 bg-red-600 uppercase last:mr-0 mr-1">unpaid</span>
                                                         </span>
                                                     </td>
                                                     <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                                        <span v-if="service.july == 1">-</span>
+                                                        <span v-if="service.july == 1">
+                                                            <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full bg-light-green text-white uppercase last:mr-0 mr-1">paid</span>
+                                                        </span>
                                                         <span v-else>
                                                             <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-blueGray-100 bg-red-600 uppercase last:mr-0 mr-1">unpaid</span>
                                                         </span>
                                                     </td>
                                                     <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                                        <span v-if="service.august == 1">-</span>
+                                                        <span v-if="service.august == 1">
+                                                            <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full bg-light-green text-white uppercase last:mr-0 mr-1">paid</span>
+                                                        </span>
                                                         <span v-else>
                                                             <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-blueGray-100 bg-red-600 uppercase last:mr-0 mr-1">unpaid</span>
                                                         </span>
                                                     </td>
                                                     <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                                        <span v-if="service.september == 1">-</span>
+                                                        <span v-if="service.september == 1">
+                                                            <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full bg-light-green text-white uppercase last:mr-0 mr-1">paid</span>
+                                                        </span>
                                                         <span v-else>
                                                             <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-blueGray-100 bg-red-600 uppercase last:mr-0 mr-1">unpaid</span>
                                                         </span>
                                                     </td>
                                                     <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                                        <span v-if="service.october == 1">-</span>
+                                                        <span v-if="service.october == 1">
+                                                            <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full bg-light-green text-white uppercase last:mr-0 mr-1">paid</span>
+                                                        </span>
                                                         <span v-else>
                                                             <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-blueGray-100 bg-red-600 uppercase last:mr-0 mr-1">unpaid</span>
                                                         </span>
                                                     </td>
                                                     <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                                        <span v-if="service.november == 1">-</span>
+                                                        <span v-if="service.november == 1">
+                                                            <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full bg-light-green text-white uppercase last:mr-0 mr-1">paid</span>
+                                                        </span>
                                                         <span v-else>
                                                             <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-blueGray-100 bg-red-600 uppercase last:mr-0 mr-1">unpaid</span>
                                                         </span>
                                                     </td>
                                                     <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                                        <span v-if="service.december == 1">-</span>
+                                                        <span v-if="service.december == 1">
+                                                            <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full bg-light-green text-white uppercase last:mr-0 mr-1">paid</span>
+                                                        </span>
                                                         <span v-else>
                                                             <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-blueGray-100 bg-red-600 uppercase last:mr-0 mr-1">unpaid</span>
                                                         </span>
@@ -211,10 +235,8 @@ export default {
             team1: 'assets/img/team-1-800x800.jpg',
             team2: '../../assets/img/team-2-800x800.jpg',
             lastname: '',
-            middlename: '',
-            firstname: '',
             id: '',
-            role: '',
+            token: '',
             loading:false,
             errors: {},
             data: {}
@@ -232,10 +254,7 @@ export default {
                     name: '/'
                 })
             }else{
-                this.lastname = User.lastname()
-                this.middlename = User.middlename()
-                this.firstname = User.firstname()
-                this.role = User.role()
+                this.token = User.token()
                 this.id = User.id()
                 if(this.middlename == 'null'){
                     this.$router.push({
@@ -244,10 +263,22 @@ export default {
                 }
             }
         },
-        getServices() {
-            axios.get("/api/unpaid-services/" + this.id)
-                .then(({ data }) => (this.data = data))
-                .catch();
+       
+        getServices(){
+            axios.get('/api/v1/unpaid-services/' + this.token, {
+                headers: {
+                    Authorization: 'Bearer ' + this.token,
+                    Accept: 'application/json'
+                }
+           }).then(response => (this.data = response.data))
+            .catch((error) => {
+                console.log(error)
+                if (error.response.status == 401) {
+                    this.$router.push({
+                        name: 'logout'
+                    })
+                }
+            })
         },
     }
 }
